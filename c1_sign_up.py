@@ -17,11 +17,18 @@ def log_or_reg(option):
         password = input("Password: ")
         confirm_password = input("Confirm Password: ")
 
-        if password == confirm_password:
-            register(username, password)
+        if len(password) >= 10:
+            if password == confirm_password:
+                register(username, password)
+            else:
+                print("\nError: Passwords don't match up.")
+                log_or_reg(option)
         else:
-            print("\nError: Passwords don't match up.")
+            print("\nYour password should be 10 characters or more.")
             log_or_reg(option)
+
+
+
 
 
 def start():
