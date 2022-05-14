@@ -1,9 +1,31 @@
-def login(username, password):
-    print("Logged in", username, password)
+def main():
+    print("Logged in")
 
+
+def login(username, password):
+    logged_in = False
+  
+    file = open("accounts.txt", "r")
+    for i in file:
+        a,b = i.split(",")
+        b = b.strip()
+        if (a == username and b == password):
+            logged_in = True
+            break
+    file.close()
+
+    if logged_in:
+        print("Successfully logged in as " + username)
+        main()
+    else:
+        print("Incorrect Username or Password.")
+        log_or_reg(option)
 
 def register(username, password):
-    print("Registered", username, password)
+    file = open("accounts.txt", "a")
+    file.write("\n" + username + "," + password)
+    file.close()
+    main()
 
 
 def log_or_reg(option):
@@ -26,8 +48,6 @@ def log_or_reg(option):
         else:
             print("\nYour password should be 10 characters or more.")
             log_or_reg(option)
-
-
 
 
 
