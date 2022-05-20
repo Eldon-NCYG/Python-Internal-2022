@@ -1,5 +1,6 @@
 def main():
-    print("Logged in")
+    # print("Logged in")
+  pass
 
 
 def login(username, password):
@@ -25,28 +26,40 @@ def register(username, password):
     file = open("accounts.txt", "a")
     file.write("\n" + username + "," + password)
     file.close()
+    print("Registered " + username)
     main()
 
 
 def log_or_reg(option):
+    username = ""
+    password = ""
+  
     if option == "l":
-        username = input("\nUsername: ")
+        print("\nPlease enter your username and password to log in.\nEnter nothing in the username and password to go back.")
+        username = input("Username: ")
         password = input("Password: ")
-        login(username, password)
+        if username == "" and password == "":
+            start()
+            exit()
+        else:
+            login(username, password)
     else:
-        print("\nCreate your username and password to register.")
+        print("\nCreate your username and password to register.\nEnter nothing in the username and password to go back.")
         username = input("Username: ")
         password = input("Password: ")
         confirm_password = input("Confirm Password: ")
-
+        if username == "" and password == "" and confirm_password == "":
+            start()
+            exit()
+      
         if len(password) >= 10:
             if password == confirm_password:
                 register(username, password)
             else:
-                print("\nError: Passwords don't match up.")
+                print("\nError: Passwords don't match up. Please Try Again.")
                 log_or_reg(option)
         else:
-            print("\nYour password should be 10 characters or more.")
+            print("\nYour password should be 10 characters or more. Please Try Again.")
             log_or_reg(option)
 
 
@@ -56,10 +69,11 @@ def start():
     print("\nWelcome to the BDSC Uniform Shop!")
     option = input("Login or Register (L / R): ")
     option = option.strip().lower()
+    log_or_reg(option)
     if option != "l" and option != "r":
         print("Please enter a valid input.\n")
         start()
-
+            
 
 start()
 log_or_reg(option)
