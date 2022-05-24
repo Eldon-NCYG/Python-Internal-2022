@@ -19,7 +19,7 @@ def login(username, password):
         print("Successfully logged in as " + username)
         main()
     else:
-        print("Incorrect Username or Password.")
+        print("Incorrect Username or Password. Please Try Again.")
         log_or_reg(option)
 
 def register(username, password):
@@ -76,4 +76,3 @@ def start():
             
 
 start()
-log_or_reg(option)
