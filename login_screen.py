@@ -2,7 +2,7 @@ def main():
     # print("Logged in")
   pass
 
-
+#Login compoennt
 def login(username, password):
     logged_in = False
   
@@ -22,6 +22,7 @@ def login(username, password):
         print("Incorrect Username or Password. Please Try Again.")
         log_or_reg(option)
 
+#Register account component
 def register(username, password):
     file = open("accounts.txt", "a")
     file.write("\n" + username + "," + password)
@@ -33,17 +34,21 @@ def register(username, password):
 def log_or_reg(option):
     username = ""
     password = ""
-  
+
+    #Entering account details for Login Component
     if option == "l":
         print("\nPlease enter your username and password to log in.\nEnter nothing in the username and password to go back.")
         username = input("Username: ")
         password = input("Password: ")
+
+          #Going back to the login screen
         if username == "" and password == "":
             start()
             exit()
         else:
             login(username, password)
     else:
+        #Register account component
         print("\nCreate your username and password to register.\nEnter nothing in the username and password to go back.")
         username = input("Username: ")
         password = input("Password: ")
@@ -63,7 +68,7 @@ def log_or_reg(option):
             log_or_reg(option)
 
 
-
+#Option for user to choose to login or register an account
 def start():
     global option
     print("\nWelcome to the BDSC Uniform Shop!")
