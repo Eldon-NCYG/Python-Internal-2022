@@ -15,6 +15,19 @@ def show_products(selection):
     for product in unisex_list:
       print(product["key"] + ": " + product["title"])
 
+
+#Adding product and details to shopping cart
+def add_to_cart(item, category):
+  product = list(filter(lambda product: product["key"] == item, category))[0]
+  name = product["product"]
+  size = input("Size (XS, S, M L, XL): ")
+  quantity = int(input("Quantity: "))
+  price = product["price"]
+  print("Added " + str(quantity) + "x " + size + " " + name + " to shopping cart.")
+  
+
+  
+  
   
 
 
@@ -28,18 +41,31 @@ def female():
 
   add_item = input("\nEnter in nothing to go back\nSelect item: ")
 
-  elif add_item == "":
+  if add_item == "":
     main()
   
 
 def male():
-  print("\n\nMale Uniform Shop\n")
+  print("\n\nMale Uniform Shop")
   show_products("male")
+  keys = [d['key'] for d in male_list]
 
 
-  add_item = input("\nEnter in nothing to go back\nSelect item: ")
-  if add_item == "":
-      main()
+
+  select_item = input("\nEnter in nothing to go back\nSelect item: ")
+  select_item = select_item.lower().strip()
+
+  if select_item in keys:
+    add_to_cart(select_item, male_list)
+    male()
+  elif select_item == "":
+    main()
+  else:
+    print("\nPlease input a product's key (a, b, c, etc)")
+    male()
+    
+
+
 
 def unisex():
   print("\nUnisex Uniform Shop\n")
