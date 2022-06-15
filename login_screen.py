@@ -1,9 +1,9 @@
-def main():
-    # print("Logged in")
-  pass
+
 
 #Login compoennt
 def login(username, password):
+    from shop_page import main
+
     logged_in = False
   
     file = open("accounts.txt", "r")
@@ -17,18 +17,19 @@ def login(username, password):
 
     if logged_in:
         print("Successfully logged in as " + username)
-        main()
+        main(username)
     else:
         print("Incorrect Username or Password. Please Try Again.")
         log_or_reg(option)
 
 #Register account component
 def register(username, password):
+    from shop_page import main
     file = open("accounts.txt", "a")
     file.write("\n" + username + "," + password)
     file.close()
     print("Registered " + username)
-    main()
+    main(username)
 
 
 def log_or_reg(option):
@@ -81,3 +82,4 @@ def start():
             
 
 start()
+

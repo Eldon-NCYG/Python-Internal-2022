@@ -1,6 +1,7 @@
 
-from product_list import male_list, female_list, unisex_list
-from checkout import final
+# from product_list import male_list, female_list, unisex_list
+# from checkout import final
+# from login_screen import username
 
 def show_products(selection):
   if selection == "male":
@@ -8,7 +9,7 @@ def show_products(selection):
       print(product["key"] + ": " + product["title"])
   elif selection == "female":
     for product in female_list:
-      print(product["key"] + ": " + product["title"])
+      prinat(product["key"] + ": " + product["title"])
   elif selection == "unisex":
     for product in unisex_list:
       print(product["key"] + ": " + product["title"])
@@ -119,8 +120,8 @@ def unisex():
     unisex()
 
 
-def main():
-  print("\nWelcome to the BDSC Uniform Shop!\n")
+def main(username):
+  print("\nWelcome to the BDSC Uniform Shop " + username + "\n")
   print("Would you like to look at Male, Female, or Unisex products? (M/F/U)?")
   print("To checkout, enter in 'C'")
   option = ""
