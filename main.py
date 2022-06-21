@@ -2,89 +2,113 @@
 from product_list import male_list, female_list, unisex_list
 from checkout import final
 
+def inputNumber(question, message):
+  while True:
+    try:
+      userInput = int(input(question))
+    except ValueError:
+      if message == "age":
+        print("Error: Please input a valid age.")
+        continue
+      elif message == "quantity":
+        print("Error: Please input a valid quantity.")
+        continue
+    else:
+       return userInput
+       
+
 
 #Login compoennt
 def login(username, password):
 
-    logged_in = False
-  
-    file = open("accounts.txt", "r")
-    for i in file:
-        a,b = i.split(",")
-        b = b.strip()
-        if (a == username and b == password):
-            logged_in = True
-            break
-    file.close()
+  logged_in = False
 
-    if logged_in:
-        print("Successfully logged in as " + username)
-        main(username)
-    else:
-        print("Incorrect Username or Password. Please Try Again.")
-        log_or_reg(option)
+  file = open("accounts.txt", "r")
+  for i in file:
+      a,b = i.split(",")
+      b = b.strip()
+      if (a == username and b == password):
+          logged_in = True
+          break
+  file.close()
+
+  if logged_in:
+      print("Successfully logged in as " + username)
+      main(username)
+  else:
+      print("Incorrect Username or Password. Please Try Again.")
+      log_or_reg(option)
 
       
 #Register account component
 def register(username, password):
-    file = open("accounts.txt", "a")
-    file.write("\n" + username + "," + password)
-    file.close()
-    print("Registered " + username)
-    main(username)
+  file = open("accounts.txt", "a")
+  file.write("\n" + username + "," + password)
+  file.close()
+  print("Registered " + username)
+  main(username)
 
 
 def log_or_reg(option):
-    global username
-    username = ""
-    password = ""
+  global username
+  username = ""
+  password = ""
 
-    #Entering account details for Login Component
-    if option == "l":
-        print("\nPlease enter your username and password to log in.\nEnter nothing in the username and password to go back.")
-        username = input("Username: ")
-        password = input("Password: ")
-          #Going back to the login screen
-        if username == "" and password == "":
-            start()
-            exit()
-        else:
-            login(username, password)
+  #Entering account details for Login Component
+  if option == "l":
+    print("\nPlease enter your username and password to log in.\nEnter nothing in the username and password to go back.")
+    username = input("Username: ")
+    password = input("Password: ")
+      #Going back to the login screen
+    if username == "" and password == "":
+      start()
+      exit()
     else:
-        #Register account component
-        print("\nCreate your username and password to register.\nEnter nothing in the username and password to go back.")
-        username = input("Username: ")
-        password = input("Password: ")
-        confirm_password = input("Confirm Password: ")
-        if username == "" and password == "" and confirm_password == "":
-            start()
-            exit()
-      
-        if len(password) >= 10:
-            if password == confirm_password:
-                register(username, password)
-            else:
-                print("\nError: Passwords don't match up. Please Try Again.")
-                log_or_reg(option)
-        else:
-            print("\nYour password should be 10 characters or more. Please Try Again.")
-            log_or_reg(option)
+      login(username, password)
+  elif option == "r":
+    #Register account component
+    print("\nCreate your username and password to register.\nEnter nothing in the username and password to go back.")
+    username = input("Username: ")
+    password = input("Password: ")
+    confirm_password = input("Confirm Password: ")
+    if username == "" and password == "" and confirm_password == "":
+      start()
+      exit()
+
+    age = inputNumber("Enter your age: ", "age")
+  
+
+            
+  if len(password) >= 10:
+    if password == confirm_password:
+      if age >= 13 and age <= 18:
+        register(username, password)
+      else:
+        print("Sorry, this uniform shop program is only for students of BDSC")
+        log_or_reg(option)
+    else:
+      print("\nError: Passwords don't match up. Please Try Again.")
+      log_or_reg(option)
+  else:
+    print("\nYour password should be 10 characters or more. Please Try Again.")
+    log_or_reg(option)
 
 
 
+#Printing the category of products depending on the user's choice
 def show_products(selection):
   if selection == "male":
     for product in male_list:
       print(product["key"] + ": " + product["title"])
   elif selection == "female":
     for product in female_list:
-      prinat(product["key"] + ": " + product["title"])
+      print(product["key"] + ": " + product["title"])
   elif selection == "unisex":
     for product in unisex_list:
       print(product["key"] + ": " + product["title"])
 
 
-      
+#Appending the items that the user selects into this list (global)
 shopping_cart = []
       
 
@@ -122,8 +146,6 @@ def add_to_cart(item, category):
     print("Added " + str(quantity) + "x " + name + " to shopping cart.")
     shopping_cart.append(add_product)
 
-  print(shopping_cart)
-
 
  
 
@@ -132,7 +154,7 @@ def female():
   show_products("female")
   keys = [d['key'] for d in female_list]
 
-  select_item = input("\nEnter in nothing to go back\nSelect item: ")
+  select_item = input("\nEnter in nothing to go back\nAdd item to your cart: ")
   select_item = select_item.lower().strip()
 
   if select_item in keys:
@@ -152,7 +174,7 @@ def male():
   keys = [d['key'] for d in male_list]
 
   #Allowing the user to input an item to their shopping cart
-  select_item = input("\nEnter in nothing to go back\nSelect item to add to cart: ")
+  select_item = input("\nEnter in nothing to go back\nAdd item to your cart to add to cart: ")
   select_item = select_item.lower().strip()
 
   #If item key selected by user is available in the male product list, add it to their cart
@@ -176,7 +198,7 @@ def unisex():
   show_products("unisex")
   keys = [d['key'] for d in unisex_list]
   
-  select_item = input("\nEnter in nothing to go back\nSelect item: ")
+  select_item = input("\nEnter in nothing to go back\nAdd item to your cart: ")
   select_item = select_item.lower().strip()
 
   if select_item in keys:
@@ -217,10 +239,12 @@ def start():
     print("\nWelcome to the BDSC Uniform Shop!")
     option = input("Login or Register (L / R): ")
     option = option.strip().lower()
-    log_or_reg(option)
     if option != "l" and option != "r":
         print("Please enter a valid input.\n")
         start()
+    else:
+      log_or_reg(option)
+
             
 
 start()

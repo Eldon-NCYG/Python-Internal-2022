@@ -9,7 +9,7 @@ def show_products(selection):
       print(product["key"] + ": " + product["title"])
   elif selection == "female":
     for product in female_list:
-      prinat(product["key"] + ": " + product["title"])
+      print(product["key"] + ": " + product["title"])
   elif selection == "unisex":
     for product in unisex_list:
       print(product["key"] + ": " + product["title"])
