@@ -1,24 +1,14 @@
-#How to make sure the user enters a number (integer) - www.101computing.net
+def input_size():
+  global size
+  sizes = ["xs", "s", "m", "l", "xl"]
+  size = input("Size (XS, S, M L, XL): ")
+  size = size.lower().strip()
+\
+  if size not in sizes:
+    print("Please input a valid size.")
+    input_size()
+  else:
+    pass
 
-def inputNumber(message):
-  while True:
-    try:
-      userInput = int(input(message))
-      break
-    except ValueError:
-       print("Not an integer! Try again.")
-       continue
-    else:
-       return userInput 
-       break 
-     
-
-#MAIN PROGRAM STARTS HERE:
-age = inputNumber("How old are you?")
-
-if (age>=18):
-  print("You are old enough to vote.")
-else:
-  print("You will be able to vote in " + str(18-age) + " year(s).")
-
-     
+input_size()
+print(size)

@@ -2,6 +2,7 @@
 from product_list import male_list, female_list, unisex_list
 from checkout import final
 
+#Error Handling for user input of numbers
 def inputNumber(question, message):
   while True:
     try:
@@ -15,7 +16,8 @@ def inputNumber(question, message):
         continue
     else:
        return userInput
-       
+
+
 
 
 #Login compoennt
@@ -48,7 +50,7 @@ def register(username, password):
   print("Registered " + username)
   main(username)
 
-
+#Allowing user to login or register depending on their option
 def log_or_reg(option):
   global username
   username = ""
@@ -79,19 +81,19 @@ def log_or_reg(option):
   
 
             
-  if len(password) >= 10:
-    if password == confirm_password:
-      if age >= 13 and age <= 18:
-        register(username, password)
+    if len(password) >= 10:
+      if password == confirm_password:
+        if age >= 13 and age <= 18:
+          register(username, password)
+        else:
+          print("Sorry, this uniform shop program is only for students of BDSC")
+          log_or_reg(option)
       else:
-        print("Sorry, this uniform shop program is only for students of BDSC")
+        print("\nError: Passwords don't match up. Please Try Again.")
         log_or_reg(option)
     else:
-      print("\nError: Passwords don't match up. Please Try Again.")
+      print("\nYour password should be 10 characters or more. Please Try Again.")
       log_or_reg(option)
-  else:
-    print("\nYour password should be 10 characters or more. Please Try Again.")
-    log_or_reg(option)
 
 
 
@@ -99,7 +101,7 @@ def log_or_reg(option):
 def show_products(selection):
   if selection == "male":
     for product in male_list:
-      print(product["key"] + ": " + product["title"])
+      print(product["key"] + ": " + product["title"])                             
   elif selection == "female":
     for product in female_list:
       print(product["key"] + ": " + product["title"])
@@ -111,6 +113,20 @@ def show_products(selection):
 #Appending the items that the user selects into this list (global)
 shopping_cart = []
       
+
+#Error handing for user size input
+def input_size():
+  global size
+  sizes = ["xs", "s", "m", "l", "xl"]
+  size = input("Size (XS, S, M L, XL): ")
+  size = size.lower().strip()
+
+  if size not in sizes:
+    print("Please input a valid size.")
+    input_size()
+  else:
+    pass
+  
 
 #Adding product and details to shopping cart
 def add_to_cart(item, category):
@@ -124,9 +140,9 @@ def add_to_cart(item, category):
 
   #Only ask for size if the product is sizable
   if sizeable:
-    size = input("Size (XS, S, M L, XL): ")
+    input_size()
 
-  quantity = int(input("Quantity: "))
+  quantity = inputNumber("Quantity: ", "quantity")
 
   #Creating the product object
   add_product = {}
@@ -210,7 +226,7 @@ def unisex():
     print("\nPlease input a product's key (a, b, c, etc)")
     unisex()
 
-
+#Main function where user chooses 
 def main(username):
   print("\nWelcome to the BDSC Uniform Shop " + username + "\n")
   print("Would you like to look at Male, Female, or Unisex products? (M/F/U)?")
@@ -248,6 +264,7 @@ def start():
             
 
 start()
+
 
 #Component 4: Checkout (showing all of the prodcuts in the  user's shopping cart)
 def final(products):
