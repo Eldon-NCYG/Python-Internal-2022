@@ -1,7 +1,6 @@
-account,qwerty1234
+PLACEHOLDER LINE, DO NOT DELETE
 eldon,password123
 Test,testing123
-Jason BH,jasonisgay123
 Test,testing123
 Eldon,Password123
 Eldon,1234567890
@@ -15,3 +14,6 @@ a,1234567890
 account,qwerty1234
 Test,testing123
 yanghongyu,yangzzheigui
+NewAccount,password1234
+account,qwerty1234
+account,password123
