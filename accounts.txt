@@ -17,3 +17,5 @@ yanghongyu,yangzzheigui
 NewAccount,password1234
 account,qwerty1234
 account,password123
+Yanzo,password123
+Eldon Chan,password123

@@ -212,7 +212,7 @@ def male():
     main(username)
   #If the user enters anything that is invalid, will tell them an error has occurred and let them try again
   else:
-    print("\nError: Please input a product's key (a, b, c, etc)")
+    print("\nError: Please input a valid product's key (a, b, c, etc)")
     male()
     
 
@@ -236,7 +236,7 @@ def unisex():
     main(username)
   #If the user enters anything that is invalid, will tell them an error has occurred and let them try again
   else:
-    print("\nError: Please input a product's key (a, b, c, etc)")
+    print("\nError: Please input a valid product's key (a, b, c, etc)")
     unisex()
 
     
@@ -271,22 +271,30 @@ def shopping_cart_list(products):
 
 #Remove item from shopping cart function
 def remove_item():
+  print("\nTo remove an item, enter in the product number\nTo go back to the shopping page, enter in nothing\nTo checkout, type 'checkout'")
   option = input("\nOption: ")
 
   #Checking if user input a a valid product number to remove
   if option.isdigit():
     option = int(option)
     option = option - 1
-    if option <= (len(shopping_cart) + 1) and option != 0:
+
+    #Use try/except block to error handle if the user inputs the 
+    try:
+      shopping_cart[option]
       print("Removed (" + str(shopping_cart[option]["quantity"]) + "x " + shopping_cart[option]["name"] + ") from your shopping cart.")
       shopping_cart.pop(option)
       shopping_cart_list(shopping_cart)
+      remove_item()
+    except IndexError:
+      print("Please Input a valid item number or other option.")
       remove_item()
 
   #Entering nothing allows user to go back a page
   elif option == "":
     main(username)
   elif option.lower().strip() == "checkout":
+    shopping_cart_list(shopping_cart)
     print("\nTotal Price: $" + str(checkout_price()) + ".00\nHave a good day!")
   #When the user inputs an invalid option, the program will allow the user to input again
   else:
@@ -297,7 +305,6 @@ def remove_item():
 def final():
   shopping_cart_list(shopping_cart)
   #Allowing the user to remove an item from the shopping cart or go back to the shop pages or to fully checkout
-  print("\nTo remove an item, enter in the product number\nTo go back to the shopping page, enter in nothing\nTo checkout, type 'checkout'")
   remove_item()
 
 
@@ -306,7 +313,7 @@ def final():
 def main(username):
   print("\nWelcome to the BDSC Uniform Shop " + username + "\n")
   print("Would you like to look at Male, Female, or Unisex products? (M/F/U)?")
-  print("To checkout, enter in 'C'")
+  print("To view shopping cart, enter in 'v'")
 
   #User can choose to view male, female, unisex, or checkout
   option = ""
@@ -319,7 +326,7 @@ def main(username):
       female()
   elif option == "u":
       unisex()
-  elif option == "c":
+  elif option == "v":
       final()
   #Error handling
   else:
@@ -334,10 +341,10 @@ def start():
   print("\nWelcome to the BDSC Uniform Shop!")
   option = input("Login or Register (L / R): ")
   option = option.strip().lower()
+  #Error handling
   if option != "l" and option != "r":
     print("Error: Please enter a valid input.\n")
     start()
-  #Error handling
   else:
     log_or_reg(option)
 
