@@ -309,7 +309,7 @@ def final():
 
 
   
-#Main function where user chooses 
+#Main function where user chooses which (part of component 3) 
 def main(username):
   print("\nWelcome to the BDSC Uniform Shop " + username + "\n")
   print("Would you like to look at Male, Female, or Unisex products? (M/F/U)?")
